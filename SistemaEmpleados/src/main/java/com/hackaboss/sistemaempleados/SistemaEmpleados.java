@@ -2,6 +2,7 @@
 package com.hackaboss.sistemaempleados;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Scanner;
 import logica.Empleado;
 import persistencia.ControladoraPersistencia;
@@ -59,6 +60,7 @@ public class SistemaEmpleados {
                     controlPersis.crearEmpleado(altaEmpleado);
                     System.out.println("");
                     break;
+                    
                 case 2: 
                     System.out.println("BAJA DE EMPLEADOS"); 
                     System.out.print("Ingrese el número de ID del empleado que desea dar de baja: ");
@@ -66,10 +68,38 @@ public class SistemaEmpleados {
                     controlPersis.borrarEmpleado(eliminarId);
                     System.out.println("\n¡El empleado número " + eliminarId + " fue eliminado exitosamente!\n");
                     break; 
-                case 3: System.out.println("Ingresaste a la consulta de empleados."); break;
-                case 4: System.out.println("Ingresaste a la modificación de empleados."); break;
-                case 5: System.out.println("¡Gracias por usar el sistema, vuelva pronto!"); volverMenu = false; break;
-                default: System.out.println("¡Opción incorrecta!");
+                    
+                case 3: 
+                    System.out.println("LISTA DE EMPLEADOS"); 
+                    System.out.printf("%-5s %-15s %-15s %-15s %-10s %-12s%n", 
+                      "ID", "NOMBRE", "APELLIDO", "CARGO", "SALARIO", "FECHA INICIO");
+                    System.out.println("-----------------------------------------------------------------------------");
+                    List<Empleado> empleados = controlPersis.traerEmpleados();
+                    if(empleados.isEmpty()) {
+                        System.out.println("\n¡Aun no existen empleados registrados!\n");
+                    } else {
+                       for(Empleado emp : empleados) {
+                           System.out.printf("%-5d %-15s %-15s %-15s %-10.2f %-12s%n", 
+                              emp.getId(), 
+                              emp.getNombre(), 
+                              emp.getApellido(), 
+                              emp.getCargo(), 
+                              emp.getSalario(), 
+                              emp.getFechaInicio());
+                       } 
+                    }
+                    break;
+                
+                case 4: 
+                    System.out.println("Ingresaste a la modificación de empleados."); 
+                    break;
+                
+                case 5: 
+                    System.out.println("¡Gracias por usar el sistema, vuelva pronto!"); volverMenu = false; 
+                    break;
+                
+                default: 
+                    System.out.println("¡Opción incorrecta!");
            
             }
             
