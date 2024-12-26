@@ -46,11 +46,11 @@ public class SistemaEmpleados {
                     System.out.println("ALTA DE EMPLEADOS");
                     teclado.nextLine();
                     System.out.print("Ingrese el nombre: ");
-                    String nombre = teclado.next();
+                    String nombre = teclado.nextLine();
                     System.out.print("Ingrese el apellido: ");
-                    String apellido = teclado.next();
+                    String apellido = teclado.nextLine();
                     System.out.print("Ingrese el cargo: ");
-                    String cargo = teclado.next();
+                    String cargo = teclado.nextLine();
                     System.out.print("Ingrese el salario: ");
                     double salario = teclado.nextDouble();
                     System.out.print("Ingrese la fecha de inicio con el formato (aaaa-mm-dd): ");
@@ -201,21 +201,21 @@ public class SistemaEmpleados {
                             switch(opcionModificar) {
                                 case 1:
                                     System.out.print("Ingrese el nombre: ");
-                                    emp.setNombre(teclado.next());
+                                    emp.setNombre(teclado.nextLine());
                                     controlPersis.modificarEmpleado(emp);
                                     System.out.println("\n¡Modificación realizada exitosamente!\n");
                                     break;
                                     
                                 case 2:
                                     System.out.print("Ingrese el apellido: ");
-                                    emp.setApellido(teclado.next());
+                                    emp.setApellido(teclado.nextLine());
                                     controlPersis.modificarEmpleado(emp);
                                     System.out.println("\n¡Modificación realizada exitosamente!\n");
                                     break;
                                     
                                 case 3:
                                     System.out.print("Ingrese el cargo: ");
-                                    emp.setCargo(teclado.next());
+                                    emp.setCargo(teclado.nextLine());
                                     controlPersis.modificarEmpleado(emp);
                                     System.out.println("\n¡Modificación realizada exitosamente!\n");
                                     break;
