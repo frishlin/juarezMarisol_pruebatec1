@@ -59,10 +59,16 @@ public class SistemaEmpleados {
                     controlPersis.crearEmpleado(altaEmpleado);
                     System.out.println("");
                     break;
-                case 2: System.out.println("Ingresaste a la baja de empleados."); break; 
+                case 2: 
+                    System.out.println("BAJA DE EMPLEADOS"); 
+                    System.out.print("Ingrese el número de ID del empleado que desea dar de baja: ");
+                    int eliminarId = teclado.nextInt();
+                    controlPersis.borrarEmpleado(eliminarId);
+                    System.out.println("\n¡El empleado número " + eliminarId + " fue eliminado exitosamente!\n");
+                    break; 
                 case 3: System.out.println("Ingresaste a la consulta de empleados."); break;
                 case 4: System.out.println("Ingresaste a la modificación de empleados."); break;
-                case 5: System.out.println("Salida del sistema"); volverMenu = false; break;
+                case 5: System.out.println("¡Gracias por usar el sistema, vuelva pronto!"); volverMenu = false; break;
                 default: System.out.println("¡Opción incorrecta!");
            
             }
