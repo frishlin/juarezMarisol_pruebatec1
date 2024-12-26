@@ -4,6 +4,7 @@ package logica;
 import java.time.LocalDate;
 
 public class Empleado {
+    private int id;
     private String nombre;
     private String apellido;
     private String cargo;
@@ -13,12 +14,21 @@ public class Empleado {
     public Empleado() {
     }
 
-    public Empleado(String nombre, String apellido, String cargo, double salario, LocalDate fechaInicio) {
+    public Empleado(int id, String nombre, String apellido, String cargo, double salario, LocalDate fechaInicio) {
+        this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
         this.cargo = cargo;
         this.salario = salario;
         this.fechaInicio = fechaInicio;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getNombre() {
@@ -60,6 +70,7 @@ public class Empleado {
     public void setFechaInicio(LocalDate fechaInicio) {
         this.fechaInicio = fechaInicio;
     }
-    
+
+        
     
 }
