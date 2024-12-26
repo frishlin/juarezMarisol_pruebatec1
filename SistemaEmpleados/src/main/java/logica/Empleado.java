@@ -1,16 +1,19 @@
 
 package logica;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
-@Entity
-public class Empleado {
+@Entity  //Clave primaria de la tabla
+@Table(name = "datos_empleados")   //Personalización del nombre de la tabla
+public class Empleado implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)  //Generación automátia de ID
     private int id;
     private String nombre;
     private String apellido;

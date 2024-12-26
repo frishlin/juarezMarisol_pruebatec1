@@ -2,16 +2,20 @@
 package com.hackaboss.sistemaempleados;
 
 import java.util.Scanner;
+import persistencia.ControladoraPersistencia;
 
 public class SistemaEmpleados {
-    
-    static int opcion;
-    static boolean volverMenu = true;
-    
-    static Scanner teclado = new Scanner(System.in);
-    
-    
+
     public static void main(String[] args) {
+        
+        int opcion;
+        boolean volverMenu = true;
+    
+        Scanner teclado = new Scanner(System.in);
+    
+        ControladoraPersistencia controlPersis = new ControladoraPersistencia();
+        
+        
         System.out.println("");
         String menu = """
                               MENÚ PRINCIPAL
