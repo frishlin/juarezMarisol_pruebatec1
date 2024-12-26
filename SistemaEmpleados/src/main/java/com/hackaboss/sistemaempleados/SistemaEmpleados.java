@@ -62,11 +62,35 @@ public class SistemaEmpleados {
                     break;
                     
                 case 2: 
-                    System.out.println("BAJA DE EMPLEADOS"); 
-                    System.out.print("Ingrese el número de ID del empleado que desea dar de baja: ");
-                    int eliminarId = teclado.nextInt();
-                    controlPersis.borrarEmpleado(eliminarId);
-                    System.out.println("\n¡El empleado número " + eliminarId + " fue eliminado exitosamente!\n");
+                    System.out.println("BAJA DE EMPLEADOS");
+                    List<Empleado> eliminarEmpleado = controlPersis.traerEmpleados();
+                    if(eliminarEmpleado.isEmpty()) {
+                        System.out.println("¡No existen empleados registrados!");
+                    } else {
+                        System.out.printf("%-5s %-15s %-15s%n", 
+                          "ID", 
+                          "NOMBRE", 
+                          "APELLIDO");
+                        System.out.println("---------------------------------------");
+                        for(Empleado emp : eliminarEmpleado) {
+                            System.out.printf("%-5d %-15s %-15s%n", 
+                              emp.getId(), 
+                              emp.getNombre(), 
+                              emp.getApellido());
+                        }
+                        
+                        System.out.print("\nIngrese el número de ID del empleado que desea dar de baja: ");
+                        int eliminarId = teclado.nextInt();
+                  
+                        Empleado empleadoEliminar = controlPersis.traerEmpleado(eliminarId);
+                        if(empleadoEliminar == null) {
+                            System.out.println("\n¡El ID ingresado no existe!");
+                        } else {
+                            controlPersis.borrarEmpleado(eliminarId);
+                            System.out.println("\n¡El empleado número " + eliminarId + " fue eliminado exitosamente!\n");
+                        }
+                    }
+                  
                     break; 
                     
                 case 3: 
