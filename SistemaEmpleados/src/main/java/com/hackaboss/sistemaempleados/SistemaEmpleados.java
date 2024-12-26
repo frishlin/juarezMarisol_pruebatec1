@@ -1,7 +1,7 @@
-
 package com.hackaboss.sistemaempleados;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import logica.Empleado;
@@ -17,7 +17,6 @@ public class SistemaEmpleados {
         Scanner teclado = new Scanner(System.in);
     
         ControladoraPersistencia controlPersis = new ControladoraPersistencia();
-        
         
         System.out.println("");
         String menu = """
@@ -94,28 +93,85 @@ public class SistemaEmpleados {
                     break; 
                     
                 case 3: 
-                    System.out.println("LISTA DE EMPLEADOS"); 
-                    System.out.printf("%-5s %-15s %-15s %-15s %-10s %-12s%n", 
-                      "ID", 
-                      "NOMBRE", 
-                      "APELLIDO", 
-                      "CARGO", 
-                      "SALARIO", 
-                      "FECHA INICIO");
-                    System.out.println("-----------------------------------------------------------------------------");
-                    List<Empleado> empleados = controlPersis.traerEmpleados();
-                    if(empleados.isEmpty()) {
-                        System.out.println("\n¡Aun no existen empleados registrados!\n");
-                    } else {
-                       for(Empleado emp : empleados) {
-                           System.out.printf("%-5d %-15s %-15s %-15s %-10.2f %-12s%n", 
-                              emp.getId(), 
-                              emp.getNombre(), 
-                              emp.getApellido(), 
-                              emp.getCargo(), 
-                              emp.getSalario(), 
-                              emp.getFechaInicio());
-                       } 
+                    System.out.println("CONSULTAR EMPLEADOS");
+                    System.out.println("1) Listar todos");
+                    System.out.println("2) Filtrar por cargo");
+                    System.out.print("\nSeleccione una opción: ");
+                    int opcionConsultar = teclado.nextInt();
+                
+                    switch (opcionConsultar) {
+                        case 1: // Listar todos los empleados
+                            System.out.printf("%-5s %-15s %-15s %-15s %-10s %-12s%n", 
+                            "ID", 
+                            "NOMBRE", 
+                            "APELLIDO", 
+                            "CARGO", 
+                            "SALARIO", 
+                            "FECHA INICIO");
+                            System.out.println("-----------------------------------------------------------------------------");
+                            List<Empleado> empleados = controlPersis.traerEmpleados();
+                            if (empleados.isEmpty()) {
+                                System.out.println("\n¡Aún no existen empleados registrados!\n");
+                            } else {
+                                for (Empleado emp : empleados) {
+                                    System.out.printf("%-5d %-15s %-15s %-15s %-10.2f %-12s%n", 
+                                    emp.getId(), 
+                                    emp.getNombre(), 
+                                    emp.getApellido(), 
+                                    emp.getCargo(), 
+                                    emp.getSalario(), 
+                                    emp.getFechaInicio());
+                                }
+                            }
+                            break;
+
+                        case 2: // Filtrar por cargo
+                            System.out.println("\nCONSULTAR EMPLEADOS POR CARGO");
+                            List<Empleado> filtroEmpleados = controlPersis.traerEmpleados();
+                            if (filtroEmpleados.isEmpty()) {
+                                System.out.println("\n¡Aún no existen empleados registrados!\n");
+                            } else {
+                                // Obtener cargos
+                                List<String> filtroCargos = new ArrayList<>();
+                                for(Empleado emp :filtroEmpleados){
+                                    if(!filtroCargos.contains(emp.getCargo())){
+                                        filtroCargos.add(emp.getCargo());
+                                    }
+                                }
+                                for(int i = 0; i < filtroCargos.size(); i++) {
+                                    System.out.println((i + 1) + ") " + filtroCargos.get(i));
+                                }
+                                System.out.print("\nSeleccione el número de cargo que desea filtrar: ");
+                                int seleccionCargo = teclado.nextInt();
+                                if(seleccionCargo < 1 || seleccionCargo > filtroCargos.size()) {
+                                    System.out.println("\n¡El número seleccionado es inválido!");
+                                } else {
+                                    String cargoSeleccionado = filtroCargos.get(seleccionCargo - 1);
+                                    System.out.println("\nEMPLEADOS CON CARGO: " + cargoSeleccionado);
+                                    System.out.printf("%-5s %-15s %-15s %-10s %-12s%n", 
+                                    "ID", 
+                                    "NOMBRE", 
+                                    "APELLIDO",  
+                                    "SALARIO", 
+                                    "FECHA INICIO");
+                                    System.out.println("-----------------------------------------------------------------------------");
+                                    for(Empleado emp : filtroEmpleados) {
+                                        if(emp.getCargo().equals(cargoSeleccionado)) {
+                                            System.out.printf("%-5d %-15s %-15s %-10.2f %-12s%n", 
+                                        emp.getId(), 
+                                        emp.getNombre(), 
+                                        emp.getApellido(),
+                                        emp.getSalario(), 
+                                        emp.getFechaInicio());
+                                        }
+                                    }
+                                }
+                            }
+                            break;
+
+                        default:
+                            System.out.println("\n¡El número seleccionado es inválido!");
+                            break;
                     }
                     break;
                 
