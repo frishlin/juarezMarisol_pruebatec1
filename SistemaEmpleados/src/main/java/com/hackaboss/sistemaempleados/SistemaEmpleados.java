@@ -38,13 +38,12 @@ public class SistemaEmpleados {
                 case 2: System.out.println("Ingresaste a la baja de empleados."); break; 
                 case 3: System.out.println("Ingresaste a la consulta de empleados."); break;
                 case 4: System.out.println("Ingresaste a la modificación de empleados."); break;
-                case 5: System.out.println("Salida del sistema"); 
-                        volverMenu = false; break;
+                case 5: System.out.println("Salida del sistema"); volverMenu = false; break;
                 default: System.out.println("¡Opción incorrecta!");
            
             }
             
-            if(volverMenu && opcion != 5) {
+            if(volverMenu) {
                 System.out.println("Presione ENTER para volver al menú...");
                 teclado.nextLine();
                 teclado.nextLine();
