@@ -47,11 +47,11 @@ public class SistemaEmpleados {
                     System.out.println("ALTA DE EMPLEADOS");
                     teclado.nextLine();
                     System.out.print("Ingrese el nombre: ");
-                    String nombre = teclado.nextLine();
+                    String nombre = teclado.next();
                     System.out.print("Ingrese el apellido: ");
-                    String apellido = teclado.nextLine();
+                    String apellido = teclado.next();
                     System.out.print("Ingrese el cargo: ");
-                    String cargo = teclado.nextLine();
+                    String cargo = teclado.next();
                     System.out.print("Ingrese el salario: ");
                     double salario = teclado.nextDouble();
                     System.out.print("Ingrese la fecha de inicio con el formato (aaaa-mm-dd): ");
@@ -72,7 +72,12 @@ public class SistemaEmpleados {
                 case 3: 
                     System.out.println("LISTA DE EMPLEADOS"); 
                     System.out.printf("%-5s %-15s %-15s %-15s %-10s %-12s%n", 
-                      "ID", "NOMBRE", "APELLIDO", "CARGO", "SALARIO", "FECHA INICIO");
+                      "ID", 
+                      "NOMBRE", 
+                      "APELLIDO", 
+                      "CARGO", 
+                      "SALARIO", 
+                      "FECHA INICIO");
                     System.out.println("-----------------------------------------------------------------------------");
                     List<Empleado> empleados = controlPersis.traerEmpleados();
                     if(empleados.isEmpty()) {
@@ -91,7 +96,82 @@ public class SistemaEmpleados {
                     break;
                 
                 case 4: 
-                    System.out.println("Ingresaste a la modificación de empleados."); 
+                    System.out.println("MODIFICAR DATOS DEL EMPLEADO"); 
+                    System.out.print("Ingrese el ID del empleado a modificar: ");
+                    int modificarId = teclado.nextInt();
+                    Empleado emp = controlPersis.traerEmpleado(modificarId);
+                    if(emp == null) {
+                        System.out.println("El empleado con ID " + modificarId + " no existe");
+                    } else {
+                        boolean modificarDatos = true;
+                        System.out.println("\nIngresa el número que corresponde al dato que desea modificar: ");
+                        String menuModificar = """
+                            ¿Qué dato desea modificar?
+                            1) Nombre
+                            2) Apellido
+                            3) Cargo
+                            4) Salario
+                            5) Fecha de Inicio
+                            6) Salir 
+                            """;
+                        while(modificarDatos) {
+                            System.out.println(menuModificar);
+                            System.out.print("Seleccione una opción: ");
+                            int opcionModificar = teclado.nextInt();
+                            switch(opcionModificar) {
+                                case 1:
+                                    System.out.print("Ingrese el nombre: ");
+                                    emp.setNombre(teclado.next());
+                                    controlPersis.modificarEmpleado(emp);
+                                    System.out.println("\n¡Modificación realizada exitosamente!\n");
+                                    break;
+                                    
+                                case 2:
+                                    System.out.print("Ingrese el apellido: ");
+                                    emp.setApellido(teclado.next());
+                                    controlPersis.modificarEmpleado(emp);
+                                    System.out.println("\n¡Modificación realizada exitosamente!\n");
+                                    break;
+                                    
+                                case 3:
+                                    System.out.print("Ingrese el cargo: ");
+                                    emp.setCargo(teclado.next());
+                                    controlPersis.modificarEmpleado(emp);
+                                    System.out.println("\n¡Modificación realizada exitosamente!\n");
+                                    break;
+                                    
+                                case 4:
+                                    System.out.print("Ingrese el salario: ");
+                                    emp.setSalario(teclado.nextDouble());
+                                    controlPersis.modificarEmpleado(emp);
+                                    System.out.println("\n¡Modificación realizada exitosamente!\n");
+                                    break;
+                                    
+                                case 5:
+                                    System.out.print("Ingrese la fecha de inicio: ");
+                                    emp.setFechaInicio(LocalDate.parse(teclado.next()));
+                                    controlPersis.modificarEmpleado(emp);
+                                    System.out.println("\n¡Modificación realizada exitosamente!\n");
+                                    break;
+                                case 6:
+                                    modificarDatos = false;
+                                    break;
+                                        
+                                default:
+                                    System.out.println("¡Opción incorrecta!");
+                                }
+                                
+                                if (modificarDatos) {
+                                    System.out.print("¿Desea modificar otro dato? (Presione S para confirmar o cualquier tecla para volver al menú): ");
+                                    String respuesta = teclado.next();
+                                    if (!respuesta.equalsIgnoreCase("S")) {
+                                        modificarDatos = false;
+                                    }
+                                }
+                                
+                            }
+                            
+                    }
                     break;
                 
                 case 5: 
@@ -104,7 +184,7 @@ public class SistemaEmpleados {
             }
             
             if(volverMenu) {
-                System.out.println("Presione ENTER para volver al menú...");
+                System.out.println("\nPresione ENTER para volver al menú...\n");
                 teclado.nextLine();
                 teclado.nextLine();
             }
