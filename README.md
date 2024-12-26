@@ -24,9 +24,11 @@ La aplicación está desarrollada en Java utilizando JPA con EclipseLink y se ej
    CREATE DATABASE empleados;
 
 2. **Selecciona la base de datos con el comando**
+```sql
 USE empleados;
 
 3. **Algunos datos que pueden ser insertados con la siguiente línea de código**
+```sql
 INSERT INTO datos_empleados (id, nombre, apellido, cargo, salario, fechainicio) VALUES
 (0, 'María', 'López', 'Cajero', 8500.50, '2022-03-15'),
 (0, 'Juan', 'Pérez', 'Gerente', 15000.75, '2020-06-01'),
